@@ -121,7 +121,7 @@ Bigint Rsa::BigIntHelper::RandomPrimer(int speed)
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<uint64_t> rnd(200 * speed, 1000 * speed);
+	std::uniform_int_distribution<uint64_t> rnd(20 * speed, 100 * speed);
 
 
 	for (nLoop = rnd(gen); nLoop < 1844674407370955161 - 2; nLoop++) {

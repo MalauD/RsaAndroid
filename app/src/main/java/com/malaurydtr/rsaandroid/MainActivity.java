@@ -20,8 +20,6 @@ public class MainActivity extends Activity {
         System.loadLibrary("native-lib");
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +36,7 @@ public class MainActivity extends Activity {
         final Switch SwDecode = findViewById(R.id.EncodeSw);
 
         final Button tButton = findViewById(R.id.transformButton);
+
         tButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -61,8 +60,17 @@ public class MainActivity extends Activity {
                 _clipboard.setPrimaryClip(ClipData.newPlainText(null,outText.getText().toString()));
             }
         });
+
+        final Button createButton = findViewById(R.id.CreateKeysButton);
+        createButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                outText.setText(CreateKeys());
+            }
+        });
     }
+
 
     public native String EncodeJNI(String in,long n,long e);
     public native String DecodeJNI(String in,long n, long d);
+    public native String CreateKeys();
 }

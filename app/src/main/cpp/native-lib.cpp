@@ -1,5 +1,6 @@
 #include <jni.h>
 #include <string>
+#include <sstream>
 #include "./RsaCPP/Rsa/Rsa.h"
 
 extern "C" JNIEXPORT jstring JNICALL Java_com_malaurydtr_rsaandroid_MainActivity_EncodeJNI(
@@ -24,4 +25,15 @@ extern "C" JNIEXPORT jstring JNICALL Java_com_malaurydtr_rsaandroid_MainActivity
     Rsa::RsaKey* rsaKey = new Rsa::RsaKey(Dodecahedron::Bigint(n),Dodecahedron::Bigint(d),Dodecahedron::Bigint(0));
     Rsa::Rsa* rsaC = new Rsa::Rsa();
     return env->NewStringUTF(rsaC->Decode(env->GetStringUTFChars(textToDecode,NULL),rsaKey).c_str());
+}
+
+extern "C" JNIEXPORT jstring JNICALL Java_com_malaurydtr_rsaandroid_MainActivity_CreateKeys(
+        JNIEnv* env,
+        jobject
+){
+    Rsa::Rsa* rsaC = new Rsa::Rsa();
+    Rsa::RsaKey* key = rsaC->CreateKeys(1);
+    std::stringstream ss;
+    ss << "n: " << key->n <<" d: " << key->d << " e: " << key->e;
+    return env-> NewStringUTF(ss.str().c_str());
 }
